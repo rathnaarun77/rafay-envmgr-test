@@ -30,6 +30,16 @@ CACHE_STORAGE_ACCESS_MODE="${CACHE_STORAGE_ACCESS_MODE}"
 SERVICE_PORT="${SERVICE_PORT}"
 GRPC_PORT="${GRPC_PORT}"
 
+# -------- Label Variables --------
+INSTANCE_ID="${INSTANCE_ID}"
+INSTANCE_NAME="${INSTANCE_NAME}"
+INSTANCE_ORG_ID="${INSTANCE_ORG_ID}"
+INSTANCE_PARTNER_ID="${INSTANCE_PARTNER_ID}"
+INSTANCE_PROJECT_ID="${INSTANCE_PROJECT_ID}"
+INSTANCE_PROJECT_NAME="${INSTANCE_PROJECT_NAME}"
+INSTANCE_WORKSPACE_ID="${INSTANCE_WORKSPACE_ID}"
+INSTANCE_WORKSPACE_NAME="${INSTANCE_WORKSPACE_NAME}"
+
 # -------- Model Info --------
 # Example:
 #MODEL_INFO='[{"name":"Mistral-7B-Instruct-v0.3","image":"nvcr.io/nim/mistralai/mistral-7b-instruct-v0.3","tag":"1.3.0"}]'
@@ -319,6 +329,21 @@ fi
 
 export INGRESS_ANNOTATIONS_BLOCK
 
+# --- Build labels block ---
+LABELS_BLOCK=$(cat <<EOF
+  labels:
+    instance-id: "${INSTANCE_ID}"
+    instance-name: "${INSTANCE_NAME}"
+    instance-org-id: "${INSTANCE_ORG_ID}"
+    instance-partner-id: "${INSTANCE_PARTNER_ID}"
+    instance-project-id: "${INSTANCE_PROJECT_ID}"
+    instance-project-name: "${INSTANCE_PROJECT_NAME}"
+    instance-workspace-id: "${INSTANCE_WORKSPACE_ID}"
+    instance-workspace-name: "${INSTANCE_WORKSPACE_NAME}"
+EOF
+)
+export LABELS_BLOCK
+
 cat <<EOF > manifest.yaml
 apiVersion: apps.nvidia.com/v1alpha1
 kind: NIMService
@@ -326,6 +351,7 @@ metadata:
   name: ${name}
   namespace: ${namespace}
 spec:
+$LABELS_BLOCK
 $NODE_SELECTOR_BLOCK
   image:
     repository: ${image}
