@@ -34,6 +34,7 @@ GRPC_PORT="${GRPC_PORT}"
 INSTANCE_ID="${INSTANCE_ID}"
 INSTANCE_NAME="${INSTANCE_NAME}"
 INSTANCE_ORG_ID="${INSTANCE_ORG_ID}"
+INSTANCE_ORG_NAME="${INSTANCE_ORG_NAME}"
 INSTANCE_PARTNER_ID="${INSTANCE_PARTNER_ID}"
 INSTANCE_PROJECT_ID="${INSTANCE_PROJECT_ID}"
 INSTANCE_PROJECT_NAME="${INSTANCE_PROJECT_NAME}"
@@ -335,6 +336,7 @@ LABELS_BLOCK=$(cat <<EOF
     instance-id: "${INSTANCE_ID}"
     instance-name: "${INSTANCE_NAME}"
     instance-org-id: "${INSTANCE_ORG_ID}"
+    instance-org-name: "${INSTANCE_ORG_NAME}"
     instance-partner-id: "${INSTANCE_PARTNER_ID}"
     instance-project-id: "${INSTANCE_PROJECT_ID}"
     instance-project-name: "${INSTANCE_PROJECT_NAME}"
@@ -343,6 +345,8 @@ LABELS_BLOCK=$(cat <<EOF
 EOF
 )
 export LABELS_BLOCK
+
+echo "LABELS_BLOCK: $LABELS_BLOCK"
 
 cat <<EOF > manifest.yaml
 apiVersion: apps.nvidia.com/v1alpha1
