@@ -1,0 +1,89 @@
+---
+apiVersion: eaas.envmgmt.io/v1
+kind: WorkflowHandler
+metadata:
+  name: nim
+  project: system-catalog
+spec:
+  config:
+    type: container
+    timeoutSeconds: 3600
+    container:
+      image: registry.dev.rafay-edge.net/rafay/rafay-nim:1.3-dev
+      kubeOptions:
+        securityContext:
+          readOnlyRootFileSystem: false
+      imagePullCredentials: {}
+  sharing:
+    enabled: true
+    projects:
+    - name: "*"
+  inputs:
+  - name: wfh-context
+    data:
+      envs:
+      - key: INSTANCE_ORG_NAME
+        value: "#{environment.labels.requestOrgName}#"
+      - key: INSTANCE_WORKSPACE_NAME
+        value: "#{environment.labels.workspace}#"
+      - key: INSTANCE_WORKSPACE_ID
+        value: "#{environment.labels.workspaceId}#"
+      - key: INSTANCE_PROJECT_NAME
+        value: "#{environment.labels.requestProjectName}#"
+      - key: INSTANCE_PROJECT_ID
+        value: "#{environment.labels.projectId}#"
+      - key: INSTANCE_PARTNER_ID
+        value: "#{environment.labels.partnerId}#"
+      - key: INSTANCE_ORG_ID
+        value: "#{environment.labels.organizationId}#"
+      - key: INSTANCE_NAME
+        value: "#{environment.labels.serviceName}#"
+      - key: INSTANCE_ID
+        value: "#{environment.labels.serviceId}#"
+      - key: CACHE_STORAGE_ACCESS_MODE
+        value: "$(current.input.cache_storage_access_mode)$"
+      - key: SERVICE_PORT
+        value: "$(current.input.service_port)$"
+      - key: GRPC_PORT
+        value: "$(current.input.grpc_port)$"
+      - key: ENV_VARS
+        value: "$(current.input.env_vars)$"
+      - key: DEVICE_DETAILS
+        value: "$(current.input.device_details)$"
+      - key: CACHE_STORAGE_SIZE
+        value: "$(current.input.cache_storage_size)$"
+      - key: CACHE_STORAGE_CLASS_NAME
+        value: "$(current.input.cache_storage_class_name)$"
+      - key: CACHE_ENGINE
+        value: "$(current.input.cache_engine)$"
+      - key: ENABLE_CACHE
+        value: "$(current.input.enable_cache)$"
+      - key: STORAGE_SIZE
+        value: "$(current.input.storage_size)$"
+      - key: GPU_LIMIT
+        value: "$(current.input.gpu_limit)$"
+      - key: MEMORY_LIMIT
+        value: "$(current.input.memory_limit)$"
+      - key: CPU_LIMIT
+        value: "$(current.input.cpu_limit)$"
+      - key: NODE_SELECTOR
+        value: "$(current.input.node_selector)$"
+      - key: STORAGE_CLASS_NAME
+        value: "$(current.input.storage_class_name)$"
+      - key: MODEL_NAME
+        value: "$(current.input.model_name)$"
+      - key: NGC_API_KEY
+        value: "$(current.input.ngc_api_key)$"
+      - key: VAR_kubeconfig
+        value: "$(current.input.kubeconfig)$"
+      - key: MODEL_INFO
+        value: "$(json.Marshal(current.input.model_info))$"
+      - key: NAMESPACE
+        value: "$(environment.name)$"
+      - key: DOMAIN
+        value: "$(current.input.domain)$"
+      - key: ACTION
+        value: "$(trigger.payload.action)$"
+        options:
+          override:
+            type: notallowed
