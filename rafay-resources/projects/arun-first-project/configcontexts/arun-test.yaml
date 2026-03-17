@@ -1,0 +1,6 @@
+apiVersion: eaas.envmgmt.io/v1
+kind: ConfigContext
+metadata:
+  name: arun-test
+  project: arun-first-project
+spec: {}

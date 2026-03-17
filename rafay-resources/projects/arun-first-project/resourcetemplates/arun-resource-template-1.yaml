@@ -1,0 +1,17 @@
+apiVersion: eaas.envmgmt.io/v1
+kind: ResourceTemplate
+metadata:
+  name: arun-resource-template-1
+  project: arun-first-project
+spec:
+  provider: terraform
+  providerOptions:
+    terraform:
+      backendType: system
+      refresh: true
+  repositoryOptions:
+    branch: main
+    directoryPath: main.tf
+    name: arun-github
+  version: v1
+  versionState: active

@@ -1,0 +1,17 @@
+apiVersion: integrations.k8smgmt.io/v3
+kind: Repository
+metadata:
+  name: arun-github
+  project: arun-first-project
+spec:
+  agents:
+  - {}
+  credentials:
+    password: sealed://credentials.password
+    username: rathnaarun77
+  endpoint: https://github.com/rathnaarun77/rafay-test.git
+  options:
+    provider: Github
+  secret:
+    name: file://artifacts/arun-github/sealed-secret.yaml
+  type: Git

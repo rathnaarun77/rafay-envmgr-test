@@ -1,0 +1,8 @@
+apiVersion: eaas.envmgmt.io/v1
+kind: EnvironmentTemplate
+metadata:
+  name: arun-env-1
+  project: arun-first-project
+spec:
+  allowScheduleOverrides: false
+  versionState: unspecified

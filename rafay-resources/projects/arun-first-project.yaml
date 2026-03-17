@@ -1,0 +1,8 @@
+apiVersion: system.k8smgmt.io/v3
+kind: Project
+metadata:
+  description: this is a test project created for learning purpose
+  name: arun-first-project
+spec:
+  driftWebhook:
+    enabled: true
