@@ -1,0 +1,37 @@
+apiVersion: eaas.envmgmt.io/v1
+kind: ResourceTemplate
+metadata:
+  name: rafay-aws-route53-delegation-sets
+  project: arun-first-project
+spec:
+  agents:
+  - name: eaas-agent
+  contexts:
+  - name: rafay-aws-arun-first-project
+  provider: terraform
+  providerOptions:
+    terraform:
+      backendType: system
+      refresh: true
+      version: 1.4.6
+  repositoryOptions:
+    branch: main
+    directoryPath: terraform/rafay-aws-resources/terraform/aws-route53
+    name: eaas-repo-arun-first-project
+  variables:
+  - name: create
+    options:
+      description: Whether to create Route53 delegation sets
+      override:
+        type: allowed
+    value: "true"
+    valueType: hcl
+  - name: delegation_sets
+    options:
+      description: Map of Route53 delegation set parameters
+      override:
+        type: allowed
+    value: '{}'
+    valueType: hcl
+  version: v1
+  versionState: active
